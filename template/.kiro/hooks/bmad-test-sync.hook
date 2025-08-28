@@ -1,0 +1,82 @@
+{
+  "name": "BMAD Test Synchronization",
+  "description": "Automatically update and synchronize tests when source code files change following BMAD testing standards",
+  "version": "2.0.0",
+  "timeout": 30000,
+  "retryPolicy": {
+    "maxRetries": 3,
+    "initialDelay": 1000,
+    "backoffMultiplier": 2,
+    "maxDelay": 10000,
+    "retryOnTimeout": true,
+    "retryOnAgentFailure": true
+  },
+  "errorHandling": {
+    "fallbackAgent": "bmad-master",
+    "gracefulDegradation": true,
+    "userNotification": true,
+    "logLevel": "INFO"
+  },
+  "when": {
+    "type": "fileEdit",
+    "patterns": [
+      "src/**/*.ts",
+      "src/**/*.js",
+      "src/**/*.jsx",
+      "src/**/*.tsx",
+      "lib/**/*.py",
+      "src/**/*.py",
+      "src/**/*.java",
+      "src/**/*.go",
+      "src/**/*.rs",
+      "src/**/*.php",
+      "src/**/*.rb",
+      "src/**/*.cs",
+      "src/**/*.cpp",
+      "src/**/*.c",
+      "src/**/*.h",
+      "src/**/*.hpp"
+    ],
+    "excludePatterns": [
+      "**/*.test.*",
+      "**/*.spec.*",
+      "**/test/**",
+      "**/tests/**",
+      "**/__tests__/**",
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**"
+    ],
+    "fileSizeLimit": "1MB",
+    "debounceMs": 500
+  },
+  "then": {
+    "type": "askAgent",
+    "agent": "qa",
+    "fallbackAgent": "bmad-master",
+    "timeout": 30000,
+    "prompt": "🧪 BMAD Test Synchronization Hook - Error-Resilient Execution\n\n## Hook Execution Context\n**Hook**: bmad-test-sync v2.0.0\n**Trigger**: File modification detected\n**File**: {{filePath}}\n**Timestamp**: {{timestamp}}\n**Execution ID**: {{executionId}}\n\n## Error Handling Instructions\n**CRITICAL**: This hook includes comprehensive error handling. If you encounter any issues:\n\n### 1. Error Detection and Reporting\n- Monitor for agent activation timeouts (>30s)\n- Detect file access permission issues\n- Identify resource availability problems\n- Track task execution failures\n\n### 2. Automatic Recovery Actions\n- **Agent Timeout**: If QA agent doesn't respond, automatically fallback to BMad Master\n- **File Access Issues**: Provide alternative file access methods\n- **Resource Problems**: Implement graceful degradation\n- **Task Failures**: Offer manual execution guidance\n\n### 3. User Notification Protocol\n```\n🧪 Test Sync Status Update\n\nFile: {{filePath}}\nStatus: [SUCCESS|WARNING|ERROR|RETRY]\nAction: [Description of action taken]\nTime: [Execution time]\n\n[If ERROR or WARNING]:\nIssue: [Description of issue]\nFallback: [Fallback action taken]\nManual Option: [How user can complete manually]\nNext Retry: [When next retry will occur]\n```\n\n## Agent Context Integration\nActivate your QA agent context with error handling awareness:\n- **Agent Steering**: `#[[file:steering/agents/qa-agent.md]]` - Your complete QA agent persona\n- **Error Handling Guide**: `#[[file:steering/context/hook-error-handling.md]]` - Hook error recovery procedures\n- **BMAD Methodology**: `#[[file:steering/bmad-method-guide.md]]` - Core BMAD principles\n- **Technical Preferences**: `#[[file:steering/context/frontend-preferences.md]]` and `#[[file:steering/context/technical-preferences.md]]`\n- **Active Specs**: Check `.kiro/specs/` for current project context\n\n## Your Task with Error Resilience\nAnalyze the changes and ensure comprehensive test coverage with robust error handling:\n\n### 1. Pre-Execution Validation\n- **File Accessibility**: Verify you can read the modified file\n- **Test Directory Access**: Confirm test directories are writable\n- **Testing Framework**: Validate testing tools are available\n- **Dependencies**: Check required testing dependencies\n\n### 2. Test Analysis with Error Handling\n- Review the modified source file (handle large files gracefully)\n- Identify existing test files (handle missing test directories)\n- Determine new test requirements (handle complex scenarios)\n- Check for edge cases (include error condition testing)\n- Cross-reference with active specs (handle missing specs gracefully)\n\n### 3. Resilient Test Implementation\n- Follow established testing patterns (fallback to standard patterns if unclear)\n- Ensure comprehensive unit test coverage (prioritize critical functionality)\n- Add integration tests for complex interactions (handle dependency issues)\n- Include error handling and edge case tests (meta: test error conditions)\n- Maintain naming conventions (use defaults if conventions unclear)\n- Apply Given-When-Then patterns (provide examples if patterns missing)\n\n### 4. BMAD Testing Standards with Fallbacks\n- Comprehensive unit tests for each function/method\n- Test both happy path and error conditions\n- Use descriptive test names (provide templates if naming unclear)\n- Group related tests logically (create logical groupings if structure unclear)\n- Ensure test independence (handle test interdependencies gracefully)\n- Mock external dependencies (provide mock examples if mocking unclear)\n- Map tests to requirements (handle missing requirements gracefully)\n\n### 5. Coverage Requirements with Flexibility\n- Aim for high code coverage (adjust targets based on complexity)\n- Focus on critical business logic (identify critical paths automatically)\n- Document untested code with rationale (provide standard rationales)\n- Validate non-functional requirements (handle missing NFRs gracefully)\n\n### 6. Spec Integration with Error Handling\n- Check for active specs (handle missing specs gracefully)\n- Align tests with spec requirements (provide general alignment if specs unclear)\n- Update spec task progress (handle spec update failures gracefully)\n- Reference acceptance criteria (create criteria if missing)\n- Maintain quality gate consistency (use standard gates if undefined)\n\n### 7. Comprehensive Error Handling\n**File Access Errors**:\n- If file cannot be read: Notify user and provide manual analysis steps\n- If test directories don't exist: Create them or guide user to create them\n- If permissions insufficient: Provide permission fix instructions\n\n**Agent Communication Errors**:\n- If QA agent activation fails: Automatically switch to BMad Master with QA capabilities\n- If agent response timeout: Retry with shorter timeout, then fallback\n- If agent context lost: Reconstruct context from available information\n\n**Task Execution Errors**:\n- If test creation fails: Provide manual test creation guidance\n- If test execution fails: Offer debugging steps and manual verification\n- If file writing fails: Suggest alternative approaches and manual steps\n\n**Resource Availability Errors**:\n- If testing framework unavailable: Suggest installation or alternative approaches\n- If dependencies missing: Provide installation guidance\n- If system resources low: Implement lightweight testing approach\n\n### 8. Execution Actions with Error Recovery\n1. **Validate Environment**: Check all prerequisites before proceeding\n2. **Create/Update Tests**: Implement with error handling and rollback capability\n3. **Execute Tests**: Run with timeout and error capture\n4. **Update Documentation**: Handle documentation update failures gracefully\n5. **Update Spec Progress**: Handle spec update failures without blocking\n6. **Provide Summary**: Always provide status summary, even on partial failure\n\n### 9. Success/Failure Reporting\n**On Success**:\n```\n✅ Test Sync Completed Successfully\n\nFile: {{filePath}}\nTests Updated: [list of test files]\nNew Tests Created: [count]\nTests Passing: [count/total]\nExecution Time: [duration]\nCoverage Impact: [coverage change]\n\nNext: Tests are ready for your review\n```\n\n**On Partial Success**:\n```\n⚠️ Test Sync Completed with Issues\n\nFile: {{filePath}}\nCompleted: [list of completed actions]\nIssues: [list of issues encountered]\nFallbacks Used: [list of fallback actions]\nManual Steps Needed: [list of manual steps]\n\nNext: Review completed work and address manual steps\n```\n\n**On Failure**:\n```\n❌ Test Sync Failed - Manual Action Required\n\nFile: {{filePath}}\nError: [description of primary error]\nAttempted Fixes: [list of attempted recovery actions]\nFallback Status: [status of fallback attempts]\n\nManual Steps:\n1. [specific manual step 1]\n2. [specific manual step 2]\n3. [specific manual step 3]\n\nAlternatives:\n- Use IDE test generation features\n- Review and update tests manually\n- Run existing tests to check for failures\n\nNext Retry: Hook will retry automatically in [time]\n```\n\n## Reference Files with Error Handling\n- **QA Agent Context**: `steering/agents/qa-agent.md`\n- **Hook Error Handling**: `steering/context/hook-error-handling.md`\n- **BMAD Methodology**: `steering/bmad-method-guide.md`\n- **Technical Standards**: `steering/context/` files\n- **Active Specs**: `.kiro/specs/` directory\n- **Project Context**: `steering/context/project-context.md`\n\n## Final Instructions\n1. **Always attempt the task** even if some resources are unavailable\n2. **Provide clear status updates** throughout execution\n3. **Use fallback approaches** when primary methods fail\n4. **Give actionable guidance** for any manual steps required\n5. **Log execution details** for debugging and improvement\n6. **Maintain user workflow continuity** even during failures\n\nProceed with test synchronization using your QA agent expertise, implementing comprehensive error handling and recovery mechanisms."
+  },
+  "onError": {
+    "notification": {
+      "title": "Test Sync Hook Error",
+      "message": "The test synchronization hook encountered an issue. Check the chat for details and manual alternatives.",
+      "level": "warning"
+    },
+    "fallback": {
+      "type": "guidance",
+      "message": "🧪 Test Sync Manual Fallback\n\nThe automatic test sync failed. You can:\n1. Run manual test sync: @qa *sync-tests {{filePath}}\n2. Review and update tests manually\n3. Use IDE test generation features\n\nThe hook will retry automatically on the next file save."
+    },
+    "logging": {
+      "level": "ERROR",
+      "includeStackTrace": true,
+      "includeContext": true
+    }
+  },
+  "monitoring": {
+    "trackExecutionTime": true,
+    "trackSuccessRate": true,
+    "alertOnFailureRate": 0.2,
+    "performanceThreshold": 10000
+  }
+}

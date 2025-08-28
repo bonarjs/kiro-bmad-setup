@@ -1,0 +1,88 @@
+{
+  "name": "BMAD Documentation Synchronization",
+  "description": "Automatically update and maintain documentation consistency when source code or documentation files change",
+  "version": "2.0.0",
+  "timeout": 45000,
+  "retryPolicy": {
+    "maxRetries": 3,
+    "initialDelay": 2000,
+    "backoffMultiplier": 2,
+    "maxDelay": 15000,
+    "retryOnTimeout": true,
+    "retryOnAgentFailure": true
+  },
+  "errorHandling": {
+    "fallbackAgent": "bmad-master",
+    "gracefulDegradation": true,
+    "userNotification": true,
+    "logLevel": "INFO"
+  },
+  "when": {
+    "type": "fileEdit",
+    "patterns": [
+      "src/**/*.ts",
+      "src/**/*.js",
+      "src/**/*.jsx",
+      "src/**/*.tsx",
+      "src/**/*.py",
+      "src/**/*.java",
+      "src/**/*.go",
+      "src/**/*.rs",
+      "src/**/*.php",
+      "src/**/*.rb",
+      "src/**/*.cs",
+      "docs/**/*.md",
+      "README.md",
+      "CHANGELOG.md",
+      "API.md",
+      "ARCHITECTURE.md",
+      "specs/**/*.md",
+      ".kiro/specs/**/*.md",
+      "package.json",
+      "requirements.txt",
+      "Cargo.toml",
+      "pom.xml",
+      "go.mod"
+    ],
+    "excludePatterns": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.git/**",
+      "**/coverage/**",
+      "**/*.log",
+      "**/*.tmp"
+    ],
+    "fileSizeLimit": "2MB",
+    "debounceMs": 1000
+  },
+  "then": {
+    "type": "askAgent",
+    "agent": "architect",
+    "fallbackAgent": "bmad-master",
+    "timeout": 45000,
+    "prompt": "📚 BMAD Documentation Synchronization Hook - Error-Resilient Execution\n\n## Hook Execution Context\n**Hook**: bmad-doc-sync v2.0.0\n**Trigger**: File modification detected\n**File**: {{filePath}}\n**Timestamp**: {{timestamp}}\n**Execution ID**: {{executionId}}\n\n## Error Handling Instructions\n**CRITICAL**: This hook includes comprehensive error handling. If you encounter any issues:\n\n### 1. Error Detection and Reporting\n- Monitor for agent activation timeouts (>45s)\n- Detect file access permission issues\n- Identify documentation structure problems\n- Track documentation update failures\n\n### 2. Automatic Recovery Actions\n- **Agent Timeout**: If Architect agent doesn't respond, automatically fallback to BMad Master\n- **File Access Issues**: Provide alternative documentation approaches\n- **Structure Problems**: Implement graceful documentation degradation\n- **Update Failures**: Offer manual documentation guidance\n\n### 3. User Notification Protocol\n```\n📚 Documentation Sync Status Update\n\nFile: {{filePath}}\nStatus: [SUCCESS|WARNING|ERROR|RETRY]\nAction: [Description of action taken]\nTime: [Execution time]\n\n[If ERROR or WARNING]:\nIssue: [Description of issue]\nFallback: [Fallback action taken]\nManual Option: [How user can complete manually]\nNext Retry: [When next retry will occur]\n```\n\n## Agent Context Integration\nActivate your Architect agent context with error handling awareness:\n- **Agent Steering**: `#[[file:steering/agents/architect-agent.md]]` - Your complete Architect agent persona\n- **Error Handling Guide**: `#[[file:steering/context/hook-error-handling.md]]` - Hook error recovery procedures\n- **BMAD Methodology**: `#[[file:steering/bmad-method-guide.md]]` - Core BMAD principles\n- **Technical Preferences**: `#[[file:steering/context/frontend-preferences.md]]` and `#[[file:steering/context/technical-preferences.md]]`\n- **Project Context**: `#[[file:steering/context/project-context.md]]` - Project-specific requirements\n- **Active Specs**: Check `.kiro/specs/` for current project context\n\n## Your Task with Error Resilience\nAnalyze changes and ensure documentation consistency with robust error handling:\n\n### 1. Pre-Execution Validation\n- **File Accessibility**: Verify you can read the modified file\n- **Documentation Structure**: Confirm documentation directories exist\n- **Write Permissions**: Validate ability to update documentation files\n- **Dependencies**: Check documentation tools and templates availability\n\n### 2. Documentation Impact Analysis with Error Handling\n- Review modified file for API/interface changes (handle large files gracefully)\n- Identify documentation files needing updates (handle missing docs gracefully)\n- Check for breaking changes or new features (handle complex changes systematically)\n- Assess impact on user/developer documentation (prioritize critical updates)\n- Cross-reference with active specs (handle missing specs gracefully)\n\n### 3. Resilient Documentation Updates\n- Update API documentation (fallback to inline comments if external docs fail)\n- Modify README files (create sections if missing, use templates if unclear)\n- Update architecture documentation (provide basic structure if missing)\n- Sync inline code comments (handle comment format variations)\n- Update CHANGELOG.md (create if missing, use standard format)\n- Maintain BMAD template consistency (use defaults if templates unavailable)\n\n### 4. BMAD Documentation Standards with Fallbacks\n- Use clear, concise BMAD writing style (provide examples if style unclear)\n- Maintain consistent formatting (apply standard formatting if inconsistent)\n- Include code examples and usage patterns (create basic examples if missing)\n- Ensure actionable documentation (provide standard action templates)\n- Keep documentation current (flag outdated sections for manual review)\n- Apply holistic system thinking (provide system context if missing)\n\n### 5. Documentation Types with Error Handling\n**API Documentation**:\n- Function signatures, parameters, return values (extract from code if docs missing)\n- Usage examples (generate basic examples if none exist)\n- Error handling documentation (document error conditions)\n\n**Architecture Documentation**:\n- System design and component interactions (create basic diagrams if missing)\n- Data flow documentation (infer from code if not documented)\n- Integration points (identify from imports and dependencies)\n\n**User Documentation**:\n- Setup guides (create basic setup if missing)\n- Usage instructions (generate from API analysis)\n- Troubleshooting guides (include common error scenarios)\n\n**Developer Documentation**:\n- Contributing guides (use standard template if missing)\n- Coding standards (reference project standards or BMAD defaults)\n- Development workflow (document current workflow if unclear)\n\n**Spec Documentation**:\n- Requirements alignment (handle missing requirements gracefully)\n- Design decision documentation (infer from implementation)\n- Implementation notes (generate from code analysis)\n\n### 6. Spec Integration with Error Handling\n- Check for active specs (handle missing specs gracefully)\n- Align documentation with spec design (provide general alignment if specs unclear)\n- Update spec task progress (handle spec update failures gracefully)\n- Reference spec requirements (create basic requirements if missing)\n- Maintain architecture decision consistency (use standard decisions if undefined)\n\n### 7. Comprehensive Error Handling\n**File Access Errors**:\n- If file cannot be read: Notify user and provide manual analysis steps\n- If documentation directories don't exist: Create them or guide user to create them\n- If permissions insufficient: Provide permission fix instructions\n\n**Agent Communication Errors**:\n- If Architect agent activation fails: Automatically switch to BMad Master with architect capabilities\n- If agent response timeout: Retry with shorter timeout, then fallback\n- If agent context lost: Reconstruct context from available information\n\n**Documentation Update Errors**:\n- If documentation creation fails: Provide manual documentation guidance\n- If file writing fails: Suggest alternative approaches and manual steps\n- If formatting fails: Apply basic formatting and note issues for manual review\n\n**Resource Availability Errors**:\n- If documentation templates unavailable: Use basic templates or create from scratch\n- If dependencies missing: Provide installation guidance or alternative approaches\n- If system resources low: Implement lightweight documentation approach\n\n### 8. Execution Actions with Error Recovery\n1. **Validate Environment**: Check all prerequisites before proceeding\n2. **Analyze Changes**: Perform impact analysis with error handling\n3. **Update Documentation**: Implement updates with rollback capability\n4. **Validate Updates**: Check documentation consistency and accuracy\n5. **Update Cross-References**: Handle broken links and references gracefully\n6. **Update Spec Progress**: Handle spec update failures without blocking\n7. **Provide Summary**: Always provide status summary, even on partial failure\n\n### 9. Success/Failure Reporting\n**On Success**:\n```\n✅ Documentation Sync Completed Successfully\n\nFile: {{filePath}}\nDocumentation Updated: [list of updated files]\nNew Documentation Created: [list of new files]\nCross-References Updated: [count]\nExecution Time: [duration]\nConsistency Check: Passed\n\nNext: Documentation is ready for your review\n```\n\n**On Partial Success**:\n```\n⚠️ Documentation Sync Completed with Issues\n\nFile: {{filePath}}\nCompleted: [list of completed actions]\nIssues: [list of issues encountered]\nFallbacks Used: [list of fallback actions]\nManual Steps Needed: [list of manual steps]\n\nNext: Review completed work and address manual steps\n```\n\n**On Failure**:\n```\n❌ Documentation Sync Failed - Manual Action Required\n\nFile: {{filePath}}\nError: [description of primary error]\nAttempted Fixes: [list of attempted recovery actions]\nFallback Status: [status of fallback attempts]\n\nManual Steps:\n1. [specific manual step 1]\n2. [specific manual step 2]\n3. [specific manual step 3]\n\nAlternatives:\n- Review and update documentation manually\n- Use IDE documentation generation features\n- Update specific documentation sections as needed\n\nNext Retry: Hook will retry automatically in [time]\n```\n\n## Reference Files with Error Handling\n- **Architect Agent Context**: `steering/agents/architect-agent.md`\n- **Hook Error Handling**: `steering/context/hook-error-handling.md`\n- **BMAD Methodology**: `steering/bmad-method-guide.md`\n- **Technical Standards**: `steering/context/` files\n- **Active Specs**: `.kiro/specs/` directory\n- **Project Context**: `steering/context/project-context.md`\n- **Existing Documentation**: Review current docs/ folder structure\n\n## Final Instructions\n1. **Always attempt the task** even if some resources are unavailable\n2. **Provide clear status updates** throughout execution\n3. **Use fallback approaches** when primary methods fail\n4. **Give actionable guidance** for any manual steps required\n5. **Log execution details** for debugging and improvement\n6. **Maintain documentation consistency** even during failures\n\nProceed with documentation synchronization using your Architect agent expertise, implementing comprehensive error handling and recovery mechanisms."
+  },
+  "onError": {
+    "notification": {
+      "title": "Documentation Sync Hook Error",
+      "message": "The documentation synchronization hook encountered an issue. Check the chat for details and manual alternatives.",
+      "level": "warning"
+    },
+    "fallback": {
+      "type": "guidance",
+      "message": "📚 Documentation Sync Manual Fallback\n\nThe automatic documentation sync failed. You can:\n1. Run manual doc sync: @architect *sync-docs {{filePath}}\n2. Review and update documentation manually\n3. Use IDE documentation generation features\n\nThe hook will retry automatically on the next relevant file change."
+    },
+    "logging": {
+      "level": "ERROR",
+      "includeStackTrace": true,
+      "includeContext": true
+    }
+  },
+  "monitoring": {
+    "trackExecutionTime": true,
+    "trackSuccessRate": true,
+    "alertOnFailureRate": 0.15,
+    "performanceThreshold": 15000
+  }
+}

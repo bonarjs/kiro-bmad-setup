@@ -1,0 +1,71 @@
+{
+  "name": "BMAD Story Validation",
+  "description": "Automatically validate story format and completeness when story files are created or modified",
+  "version": "2.0.0",
+  "timeout": 25000,
+  "retryPolicy": {
+    "maxRetries": 2,
+    "initialDelay": 1500,
+    "backoffMultiplier": 2,
+    "maxDelay": 8000,
+    "retryOnTimeout": true,
+    "retryOnAgentFailure": true
+  },
+  "errorHandling": {
+    "fallbackAgent": "bmad-master",
+    "gracefulDegradation": true,
+    "userNotification": true,
+    "logLevel": "INFO"
+  },
+  "when": {
+    "type": "fileEdit",
+    "patterns": [
+      "docs/stories/**/*.md",
+      "stories/**/*.md",
+      ".kiro/specs/**/requirements.md",
+      ".kiro/specs/**/tasks.md",
+      "docs/prd/**/*.md",
+      "specs/**/*.md"
+    ],
+    "excludePatterns": [
+      "**/*.tmp",
+      "**/*.bak",
+      "**/*.backup",
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/dist/**",
+      "**/build/**"
+    ],
+    "fileSizeLimit": "1MB",
+    "debounceMs": 800
+  },
+  "then": {
+    "type": "askAgent",
+    "agent": "po",
+    "fallbackAgent": "bmad-master",
+    "timeout": 25000,
+    "prompt": "📝 BMAD Story Validation Hook - Error-Resilient Execution\n\n## Hook Execution Context\n**Hook**: bmad-story-validation v2.0.0\n**Trigger**: Story/requirements file modification detected\n**File**: {{filePath}}\n**Timestamp**: {{timestamp}}\n**Execution ID**: {{executionId}}\n\n## Error Handling Instructions\n**CRITICAL**: This hook includes comprehensive error handling for story validation:\n\n### 1. Error Detection and Reporting\n- Monitor for agent activation timeouts (>25s)\n- Detect file parsing and content analysis issues\n- Identify template and format validation problems\n- Track story validation completion failures\n\n### 2. Automatic Recovery Actions\n- **Agent Timeout**: If PO agent doesn't respond, automatically fallback to BMad Master\n- **File Parsing Issues**: Use basic text analysis and provide manual validation guidance\n- **Template Problems**: Use standard BMAD story format as fallback\n- **Validation Failures**: Provide partial validation results and manual review guidance\n\n### 3. User Notification Protocol\n```\n📝 Story Validation Status Update\n\nFile: {{filePath}}\nStatus: [PASS|NEEDS_REVISION|INCOMPLETE|ERROR|RETRY]\nValidation: [Description of validation results]\nTime: [Execution time]\n\n[If ERROR or issues]:\nIssue: [Description of issue]\nFallback: [Fallback action taken]\nManual Option: [How user can complete validation manually]\nNext Retry: [When next retry will occur]\n```\n\n## Agent Context Integration\nActivate your PO agent context with error handling awareness:\n- **Agent Steering**: `#[[file:steering/agents/po-agent.md]]` - Your complete PO agent persona\n- **Error Handling Guide**: `#[[file:steering/context/hook-error-handling.md]]` - Hook error recovery procedures\n- **BMAD Methodology**: `#[[file:steering/bmad-method-guide.md]]` - Core BMAD principles\n- **Technical Preferences**: `#[[file:steering/context/frontend-preferences.md]]` and `#[[file:steering/context/technical-preferences.md]]`\n- **Project Context**: `#[[file:steering/context/project-context.md]]` - Project-specific requirements\n- **Active Specs**: Check `.kiro/specs/` for current project context\n\n## Your Task with Error Resilience\nValidate story format and completeness with robust error handling:\n\n### 1. Pre-Execution Validation\n- **File Accessibility**: Verify you can read the story/requirements file\n- **File Format**: Confirm file is valid Markdown format\n- **Content Analysis**: Ensure file contains story-like content\n- **Template Availability**: Check for BMAD story templates and standards\n\n### 2. Story Format Validation with Error Handling\n**User Story Structure** (handle variations gracefully):\n- **Format**: \"As a [role], I want [feature], so that [benefit]\" (accept reasonable variations)\n- **Clarity**: Each component clearly defined (suggest improvements if unclear)\n- **Value**: Benefit articulates value (help identify value if missing)\n- **Specificity**: Story is actionable (suggest specificity improvements)\n\n**Story Components** (handle missing elements gracefully):\n- **Title**: Clear, descriptive title (suggest title if missing)\n- **Description**: Detailed functionality description (help create if missing)\n- **Acceptance Criteria**: Comprehensive criteria (provide template if missing)\n- **Priority**: Story priority or epic relationship (suggest if unclear)\n- **Estimation**: Story points or complexity (optional, suggest if helpful)\n\n### 3. Acceptance Criteria Validation with Fallbacks\n**Criteria Format** (adapt to existing format):\n- **GIVEN-WHEN-THEN** or numbered list (accept either, suggest improvements)\n- **Testable**: Each criterion verifiable (help make testable if unclear)\n- **Complete**: All scenarios covered (identify gaps and suggest additions)\n- **Unambiguous**: Clear, specific language (suggest clarifications)\n\n**Coverage Requirements** (provide guidance for missing areas):\n- **Happy Path**: Primary user flow (help identify if missing)\n- **Edge Cases**: Boundary conditions (suggest common edge cases)\n- **Validation**: Input validation and error handling (add if missing)\n- **Integration**: Integration with existing functionality (identify integration points)\n- **Non-Functional**: Performance, security, accessibility (suggest if relevant)\n\n### 4. BMAD Story Standards with Error Recovery\n**Story Sizing** (provide guidance for sizing issues):\n- **Implementable**: 2-4 hour completion (suggest splitting if too large)\n- **Vertical Slice**: Complete end-to-end functionality (help identify slice)\n- **Independent**: No dependencies on incomplete stories (identify dependencies)\n- **Testable**: Can be tested independently (suggest testing approach)\n\n**Story Quality** (improve quality gracefully):\n- **Value-Driven**: Clear user/business value (help identify value)\n- **Definition of Done**: Clear completion criteria (provide template if missing)\n- **Dependencies**: Dependencies clearly identified (help identify if missing)\n- **Risks**: Potential risks or blockers noted (suggest common risks)\n\n### 5. Template Compliance with Fallbacks\n**Required Sections** (handle missing sections gracefully):\n- Story title and identifier (generate if missing)\n- User story statement (help create if missing)\n- Acceptance criteria (provide template if missing)\n- Definition of done (use standard template if missing)\n- Notes or additional context (suggest if helpful)\n\n**Optional Sections** (suggest if beneficial):\n- Story points or estimation (suggest if helpful for planning)\n- Dependencies or prerequisites (identify if present)\n- Technical notes or constraints (suggest if relevant)\n- UI/UX requirements or mockups (suggest if UI story)\n\n### 6. Epic and Spec Integration with Error Handling\n**Epic Alignment** (handle missing epic context gracefully):\n- Story contributes to epic goals (identify epic if unclear)\n- Story sequence is logical (suggest sequencing if unclear)\n- Story doesn't duplicate others (check for duplicates)\n- Story scope is appropriate (suggest scope adjustments)\n\n**Spec Consistency** (handle missing specs gracefully):\n- Story aligns with requirements (check against specs if available)\n- Story supports design decisions (reference design if available)\n- Story follows technical assumptions (use project context)\n- Story maintains architectural consistency (suggest architecture alignment)\n\n### 7. Quality Assurance Checks with Error Recovery\n**Content Quality** (improve quality gracefully):\n- Grammar and spelling (suggest corrections, don't block for minor issues)\n- Language clarity (suggest improvements)\n- Technical terms usage (provide definitions if unclear)\n- Ambiguity removal (identify and suggest clarifications)\n\n**Completeness Check** (handle incomplete stories gracefully):\n- All required sections present (identify missing sections)\n- Acceptance criteria comprehensive (suggest additional criteria)\n- Sufficient implementation detail (suggest detail improvements)\n- Dependencies and constraints documented (help identify if missing)\n\n### 8. Comprehensive Error Handling\n**File Access Errors**:\n- If file cannot be read: Provide manual validation guidance\n- If file format invalid: Suggest format corrections\n- If content unparseable: Provide basic validation checklist\n\n**Agent Communication Errors**:\n- If PO agent activation fails: Switch to BMad Master with PO capabilities\n- If agent response timeout: Provide basic validation results\n- If agent context lost: Reconstruct context from file analysis\n\n**Validation Process Errors**:\n- If template matching fails: Use basic BMAD story format\n- If criteria analysis fails: Provide manual criteria checklist\n- If integration checking fails: Suggest manual integration review\n\n**Content Analysis Errors**:\n- If story format unclear: Provide format guidance and examples\n- If acceptance criteria missing: Provide criteria template\n- If story too complex: Suggest story splitting guidance\n\n### 9. Execution Actions with Error Recovery\n1. **Parse File Content**: Analyze story structure with error handling\n2. **Validate Format**: Check BMAD story format compliance\n3. **Assess Criteria**: Evaluate acceptance criteria completeness\n4. **Check Integration**: Verify epic and spec alignment\n5. **Quality Review**: Assess overall story quality\n6. **Generate Feedback**: Provide specific, actionable feedback\n7. **Update Status**: Mark validation results appropriately\n8. **Update Spec Progress**: Handle spec updates gracefully\n\n### 10. Success/Failure Reporting\n**On PASS**:\n```\n✅ Story Validation PASSED\n\nFile: {{filePath}}\nValidation: Story meets all BMAD standards\nStrengths: [list of story strengths]\nReady: Story is ready for implementation\nTime: [execution time]\n\nNext: Story can be assigned to development\n```\n\n**On NEEDS REVISION**:\n```\n⚠️ Story Validation - NEEDS REVISION\n\nFile: {{filePath}}\nValidation: Story has issues requiring attention\nStrengths: [what's working well]\nIssues: [specific issues to address]\nSuggestions: [improvement recommendations]\nTime: [execution time]\n\nNext: Address issues and re-validate\n```\n\n**On INCOMPLETE**:\n```\n📝 Story Validation - INCOMPLETE\n\nFile: {{filePath}}\nValidation: Story is missing required elements\nPresent: [what's already there]\nMissing: [required elements missing]\nTemplate: [link to story template]\nTime: [execution time]\n\nNext: Complete missing elements and re-validate\n```\n\n**On ERROR**:\n```\n❌ Story Validation Failed - Manual Review Required\n\nFile: {{filePath}}\nError: [description of validation error]\nAttempted: [validation attempts made]\nFallback: [fallback actions taken]\n\nManual Validation Checklist:\n1. Check story follows \"As a [role], I want [feature], so that [benefit]\" format\n2. Verify acceptance criteria are testable and complete\n3. Ensure story is appropriately sized (2-4 hours)\n4. Confirm story delivers clear value\n5. Check story aligns with epic/spec requirements\n\nNext Retry: Hook will retry on next file save\n```\n\n## Reference Files with Error Handling\n- **PO Agent Context**: `steering/agents/po-agent.md`\n- **Hook Error Handling**: `steering/context/hook-error-handling.md`\n- **BMAD Methodology**: `steering/bmad-method-guide.md`\n- **Story Templates**: `specs/templates/core-story/` for standards\n- **Active Specs**: `.kiro/specs/` directory\n- **Technical Standards**: `steering/context/` files\n- **Project Context**: `steering/context/project-context.md`\n\n## Final Instructions\n1. **Always attempt validation** even if some elements are unclear\n2. **Provide constructive feedback** that helps improve the story\n3. **Use fallback approaches** when primary validation methods fail\n4. **Give specific guidance** for addressing any issues found\n5. **Maintain story quality standards** while being helpful and supportive\n6. **Handle partial information gracefully** and suggest improvements\n\nProceed with story validation using your PO agent expertise, implementing comprehensive error handling while maintaining BMAD story quality standards."
+  },
+  "onError": {
+    "notification": {
+      "title": "Story Validation Hook Error",
+      "message": "Story validation encountered an issue. Manual story review may be needed. Check the chat for details.",
+      "level": "info"
+    },
+    "fallback": {
+      "type": "guidance",
+      "message": "📝 Story Validation Manual Fallback\n\nAutomatic story validation failed. You can:\n1. Run manual validation: @po *validate-story {{filePath}}\n2. Review story against BMAD template manually\n3. Use story validation checklist\n\nThe hook will retry automatically on the next file save."
+    },
+    "logging": {
+      "level": "INFO",
+      "includeStackTrace": false,
+      "includeContext": true
+    }
+  },
+  "monitoring": {
+    "trackExecutionTime": true,
+    "trackSuccessRate": true,
+    "alertOnFailureRate": 0.25,
+    "performanceThreshold": 12000
+  }
+}

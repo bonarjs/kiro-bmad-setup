@@ -1,0 +1,62 @@
+{
+  "name": "kiro-bmad-setup",
+  "version": "1.0.0",
+  "description": "BMAD Method integration artifacts for Kiro IDE - Complete setup for AI-driven development workflows",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [
+    "bmad",
+    "kiro",
+    "ai-development",
+    "agile",
+    "templates",
+    "workflows",
+    "agents",
+    "ide",
+    "typescript"
+  ],
+  "author": "Bonar Digital",
+  "license": "MIT",
+  "homepage": "https://github.com/bonar-digital/kiro-bmad-setup",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bonar-digital/kiro-bmad-setup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bonar-digital/kiro-bmad-setup/issues"
+  },
+  "dependencies": {
+    "@bmad-code-org/bmad-method": "^5.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/server-remote": ">=0.1.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "setup": "node setup.js",
+    "validate": "node validate.js",
+    "postinstall": "echo 'To setup BMAD-Kiro integration, run: npm run setup'"
+  },
+  "files": [
+    "dist/**/*",
+    "templates/**/*",
+    "steering/**/*",
+    "hooks/**/*",
+    "specs/**/*",
+    "settings/**/*",
+    "setup.js",
+    "validate.js",
+    "README.md",
+    "AGENT_USAGE.md",
+    "TEMPLATE_WORKFLOW.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

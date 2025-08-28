@@ -1,0 +1,88 @@
+{
+  "name": "BMAD Code Standards Enforcement",
+  "description": "Automatically apply BMAD coding standards and formatting when source code files are saved",
+  "version": "2.0.0",
+  "timeout": 20000,
+  "retryPolicy": {
+    "maxRetries": 2,
+    "initialDelay": 1000,
+    "backoffMultiplier": 2,
+    "maxDelay": 5000,
+    "retryOnTimeout": true,
+    "retryOnAgentFailure": true
+  },
+  "errorHandling": {
+    "fallbackAgent": "bmad-master",
+    "gracefulDegradation": true,
+    "userNotification": false,
+    "logLevel": "WARN"
+  },
+  "when": {
+    "type": "fileSave",
+    "patterns": [
+      "src/**/*.ts",
+      "src/**/*.js",
+      "src/**/*.jsx",
+      "src/**/*.tsx",
+      "src/**/*.vue",
+      "src/**/*.svelte",
+      "lib/**/*.py",
+      "src/**/*.py",
+      "src/**/*.java",
+      "src/**/*.go",
+      "src/**/*.rs",
+      "src/**/*.php",
+      "src/**/*.rb",
+      "src/**/*.cs",
+      "src/**/*.cpp",
+      "src/**/*.c",
+      "src/**/*.h",
+      "src/**/*.hpp",
+      "src/**/*.scss",
+      "src/**/*.css",
+      "src/**/*.less"
+    ],
+    "excludePatterns": [
+      "**/*.test.*",
+      "**/*.spec.*",
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.git/**",
+      "**/coverage/**",
+      "**/*.min.*",
+      "**/*.bundle.*"
+    ],
+    "fileSizeLimit": "500KB",
+    "debounceMs": 300
+  },
+  "then": {
+    "type": "askAgent",
+    "agent": "dev",
+    "fallbackAgent": "bmad-master",
+    "timeout": 20000,
+    "prompt": "💻 BMAD Code Standards Hook - Error-Resilient Execution\n\n## Hook Execution Context\n**Hook**: bmad-code-standards v2.0.0\n**Trigger**: File save detected\n**File**: {{filePath}}\n**Timestamp**: {{timestamp}}\n**Execution ID**: {{executionId}}\n\n## Error Handling Instructions\n**CRITICAL**: This hook includes comprehensive error handling with silent operation for minor issues:\n\n### 1. Error Detection and Reporting\n- Monitor for agent activation timeouts (>20s)\n- Detect file access permission issues\n- Identify formatting tool availability\n- Track code modification failures\n\n### 2. Automatic Recovery Actions\n- **Agent Timeout**: If Dev agent doesn't respond, automatically fallback to BMad Master\n- **File Access Issues**: Skip formatting and provide guidance\n- **Tool Unavailability**: Use basic formatting rules\n- **Modification Failures**: Preserve original code and suggest manual fixes\n\n### 3. Silent Operation Protocol\n**Note**: This hook operates silently for successful operations to avoid interrupting development flow.\nOnly notify user for significant issues or failures.\n\n## Agent Context Integration\nActivate your Dev agent context with error handling awareness:\n- **Agent Steering**: `#[[file:steering/agents/dev-agent.md]]` - Your complete Dev agent persona\n- **Error Handling Guide**: `#[[file:steering/context/hook-error-handling.md]]` - Hook error recovery procedures\n- **BMAD Methodology**: `#[[file:steering/bmad-method-guide.md]]` - Core BMAD principles\n- **Technical Preferences**: `#[[file:steering/context/frontend-preferences.md]]` and `#[[file:steering/context/technical-preferences.md]]`\n- **Project Context**: `#[[file:steering/context/project-context.md]]` - Project-specific requirements\n- **Active Specs**: Check `.kiro/specs/` for current implementation context\n\n## Your Task with Error Resilience\nReview and apply BMAD coding standards with robust error handling:\n\n### 1. Pre-Execution Validation\n- **File Accessibility**: Verify you can read and write the saved file\n- **File Size Check**: Ensure file is within reasonable size limits (<500KB)\n- **Tool Availability**: Check for project formatting tools (ESLint, Prettier, etc.)\n- **Backup Creation**: Create backup of original file content\n\n### 2. Code Standards Review with Error Handling\n- Check code formatting and style (handle malformed code gracefully)\n- Verify naming conventions (suggest improvements without breaking functionality)\n- Ensure proper code organization (handle complex structures gracefully)\n- Review language-specific best practices (adapt to project patterns)\n- Validate error handling patterns (improve without breaking existing logic)\n- Cross-reference with active specs (handle missing specs gracefully)\n\n### 3. BMAD Coding Standards with Fallbacks\n- **Clean Code Principles**: Apply where possible, suggest improvements for complex cases\n- **Consistent Naming**: Fix obvious issues, suggest improvements for complex cases\n- **Function Size**: Flag large functions, suggest refactoring without implementing\n- **Error Handling**: Improve existing patterns, don't add if not present\n- **Documentation**: Add comments for complex logic, don't over-document\n- **Testing**: Ensure testability, don't break existing test patterns\n- **Sequential Implementation**: Maintain BMAD development approach\n\n### 4. Language-Specific Standards with Error Handling\n**TypeScript/JavaScript**:\n- Use TypeScript types (add where obvious, suggest for complex cases)\n- Follow ESLint/Prettier (use project config, fallback to standard rules)\n- Use modern ES6+ features (upgrade where safe, suggest for complex cases)\n- Implement async/await patterns (improve existing, don't break working code)\n- Follow framework patterns (respect existing patterns, suggest improvements)\n\n**Python**:\n- Follow PEP 8 guidelines (apply automatic fixes, suggest for complex cases)\n- Use type hints (add where obvious, suggest for complex functions)\n- Implement exception handling (improve existing, don't add if not needed)\n- Follow naming conventions (fix obvious violations, suggest for complex cases)\n- Use docstrings (add for public functions, don't over-document)\n\n**Java**:\n- Follow naming conventions (fix obvious issues, suggest for complex cases)\n- Use proper access modifiers (improve where obvious, suggest for complex cases)\n- Implement exception handling (improve existing patterns)\n- Follow framework patterns (respect existing, suggest improvements)\n- Use appropriate design patterns (suggest, don't implement complex changes)\n\n**Go**:\n- Follow gofmt standards (apply automatic formatting)\n- Use proper error handling (improve existing patterns)\n- Follow naming conventions (fix obvious issues)\n- Implement proper package organization (suggest improvements)\n\n### 5. Spec Integration with Error Handling\n- Check for active specs (handle missing specs gracefully)\n- Align code with spec implementation tasks (provide general alignment if specs unclear)\n- Update spec task progress (handle spec update failures gracefully)\n- Reference acceptance criteria (create basic criteria if missing)\n- Maintain technical requirement consistency (use standard requirements if undefined)\n\n### 6. Code Quality Checks with Error Recovery\n- Remove unused imports/variables (handle complex dependency chains gracefully)\n- Ensure proper indentation/spacing (apply safe formatting, preserve complex structures)\n- Check for security issues (flag issues, suggest fixes without breaking functionality)\n- Validate performance considerations (suggest improvements, don't implement complex optimizations)\n- Ensure accessibility compliance (improve where obvious, suggest for complex cases)\n- Apply BMAD best practices (adapt to project context)\n\n### 7. Comprehensive Error Handling\n**File Access Errors**:\n- If file cannot be read: Skip formatting and log issue\n- If file cannot be written: Preserve original and suggest manual formatting\n- If permissions insufficient: Provide permission fix instructions\n\n**Agent Communication Errors**:\n- If Dev agent activation fails: Automatically switch to BMad Master with dev capabilities\n- If agent response timeout: Apply basic formatting rules and continue\n- If agent context lost: Reconstruct context from file analysis\n\n**Formatting Tool Errors**:\n- If ESLint/Prettier unavailable: Use basic JavaScript/TypeScript formatting rules\n- If language-specific tools missing: Apply language standard formatting\n- If configuration files missing: Use sensible defaults\n\n**Code Modification Errors**:\n- If formatting breaks code: Revert to original and suggest manual fixes\n- If changes cause syntax errors: Revert problematic changes\n- If complex refactoring needed: Suggest improvements without implementing\n\n### 8. Execution Actions with Error Recovery\n1. **Create Backup**: Always backup original file content\n2. **Apply Safe Formatting**: Use project configuration with fallbacks\n3. **Fix Style Violations**: Apply safe fixes, suggest complex ones\n4. **Optimize Imports**: Remove obvious unused imports safely\n5. **Improve Error Handling**: Enhance existing patterns carefully\n6. **Update Comments**: Add helpful comments for complex logic\n7. **Validate Changes**: Ensure no functionality is broken\n8. **Update Spec Progress**: Handle spec updates gracefully\n9. **Provide Summary**: Report changes made (only if significant)\n\n### 9. Success/Failure Reporting\n**On Silent Success** (Most Common):\n- Apply formatting silently\n- No user notification for routine formatting\n- Log successful execution for monitoring\n\n**On Success with Notable Changes**:\n```\n💻 Code Standards Applied\n\nFile: {{filePath}}\nChanges: [list of significant improvements]\nTime: [execution time]\n\nYour code now follows BMAD standards.\n```\n\n**On Partial Success**:\n```\n⚠️ Code Standards Partially Applied\n\nFile: {{filePath}}\nCompleted: [list of completed actions]\nSuggestions: [list of manual improvements needed]\nTime: [execution time]\n\nSome improvements require manual attention.\n```\n\n**On Failure**:\n```\n❌ Code Standards Application Failed\n\nFile: {{filePath}}\nError: [description of primary error]\nOriginal Code: Preserved (no changes made)\n\nManual Options:\n1. Use IDE auto-formatting (Ctrl+Shift+F)\n2. Run project linting tools manually\n3. Apply BMAD standards manually\n\nNext Retry: Hook will retry on next file save\n```\n\n## Reference Files with Error Handling\n- **Dev Agent Context**: `steering/agents/dev-agent.md`\n- **Hook Error Handling**: `steering/context/hook-error-handling.md`\n- **BMAD Methodology**: `steering/bmad-method-guide.md`\n- **Technical Standards**: `steering/context/` files\n- **Active Specs**: `.kiro/specs/` directory\n- **Project Context**: `steering/context/project-context.md`\n- **Project Configuration**: .eslintrc, .prettierrc, pyproject.toml, etc.\n\n## Final Instructions\n1. **Operate silently** for routine formatting and minor improvements\n2. **Preserve functionality** - never break working code\n3. **Use safe transformations** - only apply changes you're confident about\n4. **Suggest complex improvements** rather than implementing them automatically\n5. **Always backup** original content before making changes\n6. **Fail gracefully** - preserve original code if anything goes wrong\n7. **Respect project patterns** - adapt to existing code style and conventions\n\nProceed with code standards application using your Dev agent expertise, implementing comprehensive error handling while maintaining silent operation for routine improvements."
+  },
+  "onError": {
+    "notification": {
+      "title": "Code Standards Hook Error",
+      "message": "Code formatting encountered an issue. Your original code is preserved. Manual formatting may be needed.",
+      "level": "info"
+    },
+    "fallback": {
+      "type": "guidance",
+      "message": "💻 Code Standards Manual Fallback\n\nAutomatic formatting failed. You can:\n1. Use IDE auto-formatting (Ctrl+Shift+F)\n2. Run project linting tools manually\n3. Apply BMAD standards manually\n\nYour original code is preserved and safe."
+    },
+    "logging": {
+      "level": "WARN",
+      "includeStackTrace": false,
+      "includeContext": true
+    }
+  },
+  "monitoring": {
+    "trackExecutionTime": true,
+    "trackSuccessRate": true,
+    "alertOnFailureRate": 0.3,
+    "performanceThreshold": 8000
+  }
+}

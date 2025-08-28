@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "BMAD-METHOD": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://gitmcp.io/bmad-code-org/BMAD-METHOD"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "fetch_BMAD_METHOD_documentation",
+        "search_BMAD_METHOD_code",
+        "search_BMAD_METHOD_documentation",
+        "fetch_generic_url_content"
+      ]
+    },
+    "Kiro Docs": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://gitmcp.io/kirodotdev/Kiro"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "search_Kiro_documentation",
+        "search_Kiro_code",
+        "fetch_Kiro_documentation",
+        "fetch_generic_url_content"
+      ]
+    }
+  }
+}
