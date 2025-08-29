@@ -1,57 +1,26 @@
-# BMAD-Kiro Integration Guide
+# Kiro BMAD Setup
 
-## Overview
+| English 🇬🇧 | Português (BR) 🇧🇷 | Español 🇪🇸 |
+|:---:|:---:|:---:|
+| This command-line tool (CLI) sets up your project to work with the BMAD Method within the Kiro IDE.<br/><br/>It automatically installs the `.bmad-core` resources and copies the necessary `.kiro` configuration files and hooks. | Esta ferramenta de linha de comando (CLI) prepara seu projeto para trabalhar com o Método BMAD dentro do IDE Kiro.<br/><br/>Ela instala automaticamente os recursos do `.bmad-core` e copia os arquivos de configuração e hooks necessários do `.kiro`. | Esta herramienta de línea de comandos (CLI) configura su proyecto para trabajar con el Método BMAD dentro del IDE Kiro.<br/><br/>Instala automáticamente los recursos de `.bmad-core` y copia los archivos de configuración y los hooks necesarios de `.kiro`. |
 
-This guide provides comprehensive instructions for setting up and using BMAD Method with Kiro IDE through native Kiro features. The integration transforms Kiro into a BMAD-native development platform using Specs, Hooks, Steering files, Chat, and MCP servers.
+## Usage / Como Usar / Cómo Usar
 
-## Table of Contents
+Execute the following command in the root of your project:
 
-- [Quick Start](#quick-start)
-- [Installation](#installation)
-- [Team Onboarding](#team-onboarding)
-- [Configuration](#configuration)
-- [Usage Examples](#usage-examples)
-- [Project Types](#project-types)
-- [Troubleshooting](#troubleshooting)
-- [Advanced Configuration](#advanced-configuration)
+Execute o seguinte comando na raiz do seu projeto:
 
-## Quick Start
+Ejecute el siguiente comando en la raíz de su proyecto:
 
-### Prerequisites
+```
+npx kiro-bmad-setup
+```
 
-- Kiro IDE installed and running
-- Git repository for your project
-- Node.js and npm/yarn for MCP server dependencies
+---
 
-### 5-Minute Setup
+### Acknowledgements
 
-1. **Install the kiro-bmad-setup package:**
-   ```bash
-   npm install kiro-bmad-setup
-   # or
-   yarn add kiro-bmad-setup
-   ```
+This setup and workflow are powered by the amazing work of the following projects. A special thanks to them for helping boost developer productivity!
 
-2. **Run the setup script:**
-   ```bash
-   npm run setup
-   # or
-   yarn setup
-   ```
-
-3. **Install MCP dependencies:**
-   ```bash
-   # Install MCP remote server capability
-   npm install -g @modelcontextprotocol/server-remote
-   ```
-
-4. **Verify installation:**
-   - Open Kiro IDE in your project
-   - Type `@pm` in chat - you should see PM agent context activate
-   - Check that hooks are loaded in the Hooks panel
-   - Verify MCP servers are connected in the MCP panel
-
-5. **Create your first spec:**
-   - Go to Specs panel
-   - Create new spec using "planning-workflow" template
-   - Follow the Requirements → Design → Tasks workflow
+-   **[Kiro](https://github.com/kirodotdev/Kiro):** An innovative IDE that enhances development workflows.
+-   **[BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD):** An open-source methodology for building better software.

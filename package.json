@@ -1,62 +1,49 @@
 {
   "name": "kiro-bmad-setup",
-  "version": "1.0.0",
-  "description": "BMAD Method integration artifacts for Kiro IDE - Complete setup for AI-driven development workflows",
-  "main": "index.js",
-  "type": "module",
-  "keywords": [
-    "bmad",
-    "kiro",
-    "ai-development",
-    "agile",
-    "templates",
-    "workflows",
-    "agents",
-    "ide",
-    "typescript"
-  ],
-  "author": "Bonar Digital",
-  "license": "MIT",
-  "homepage": "https://github.com/bonar-digital/kiro-bmad-setup",
+  "version": "0.1.0",
+  "description": "NPX installer to configure the BMAD methodology for the Kiro IDE.",
+  "author": "Bota na Rede <dev@botanarede.com.br>",
+  "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bonar-digital/kiro-bmad-setup.git"
+    "url": "git+https://github.com/bonarjs/kiro-bmad-setup.git"
   },
+  "keywords": [
+    "kiro",
+    "bmad",
+    "bmad-method",
+    "cli",
+    "installer"
+  ],
+  "homepage": "https://github.com/bonarjs/kiro-bmad-setup#readme",
   "bugs": {
-    "url": "https://github.com/bonar-digital/kiro-bmad-setup/issues"
+    "url": "https://github.com/bonarjs/kiro-bmad-setup/issues"
   },
-  "dependencies": {
-    "@bmad-code-org/bmad-method": "^5.0.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.3.0",
-    "@types/node": "^20.0.0"
-  },
-  "peerDependencies": {
-    "@modelcontextprotocol/server-remote": ">=0.1.0"
-  },
-  "scripts": {
-    "build": "tsc",
-    "setup": "node setup.js",
-    "validate": "node validate.js",
-    "postinstall": "echo 'To setup BMAD-Kiro integration, run: npm run setup'"
+  "bin": {
+    "kiro-bmad-setup": "./bin/cli.js"
   },
   "files": [
-    "dist/**/*",
-    "templates/**/*",
-    "steering/**/*",
-    "hooks/**/*",
-    "specs/**/*",
-    "settings/**/*",
-    "setup.js",
-    "validate.js",
-    "README.md",
-    "AGENT_USAGE.md",
-    "TEMPLATE_WORKFLOW.md",
-    "CHANGELOG.md"
+    "bin",
+    "dist",
+    "template"
   ],
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "execa": "^9.0.0",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
