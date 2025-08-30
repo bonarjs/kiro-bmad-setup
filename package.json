@@ -20,7 +20,7 @@
     "url": "https://github.com/bonarjs/kiro-bmad-setup/issues"
   },
   "bin": {
-    "kiro-bmad-setup": "./bin/cli.js"
+    "kiro-bmad-setup": "bin/cli.js"
   },
   "files": [
     "bin",
