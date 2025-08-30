@@ -1,6 +1,6 @@
 {
   "name": "kiro-bmad-setup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NPX installer to configure the BMAD methodology for the Kiro IDE.",
   "author": "Bota na Rede <dev@botanarede.com.br>",
   "license": "ISC",
@@ -20,7 +20,7 @@
     "url": "https://github.com/bonarjs/kiro-bmad-setup/issues"
   },
   "bin": {
-    "kiro-bmad-setup": "./bin/cli.js"
+    "kiro-bmad-setup": "bin/cli.js"
   },
   "files": [
     "bin",

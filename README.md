@@ -24,3 +24,11 @@ This setup and workflow are powered by the amazing work of the following project
 
 -   **[Kiro](https://github.com/kirodotdev/Kiro):** An innovative IDE that enhances development workflows.
 -   **[BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD):** An open-source methodology for building better software.
+
+---
+
+### CHANGELOG
+
+-   **en-US:** Fixed the extension of hook files, which prevented them from appearing in the KIRO panel. This is now corrected.
+-   **pt-BR:** Corrigida a extensão dos arquivos de hook, que impedia que eles aparecessem no painel do KIRO. Agora já foi corrigido.
+-   **es-ES:** Se corrigió la extensión de los archivos de hook, lo que impedía que aparecieran en el panel de KIRO. Ahora ya está corregido.
