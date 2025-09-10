@@ -16,6 +16,14 @@ Ejecute el siguiente comando en la raíz de su proyecto:
 npx kiro-bmad-setup
 ```
 
+### Autonomous Agents / Agentes Autônomos / Agentes Autónomos
+
+English: This setup includes the gemini-auto autonomous agent (Gemini CLI). In Kiro chat, activate it with `#gemini-auto` and run commands like: `*help`, `*auto-analyze {target}`, `*auto-implement {task}`, `*auto-review {target}`, `*auto-optimize {target}`, `*project-status`, `*gemini-exec {prompt}`.
+
+Português (BR): Esta configuração inclui o agente autônomo gemini-auto (Gemini CLI). No chat do Kiro, ative-o com `#gemini-auto` e execute: `*help`, `*auto-analyze {alvo}`, `*auto-implement {tarefa}`, `*auto-review {alvo}`, `*auto-optimize {alvo}`, `*project-status`, `*gemini-exec {prompt}`.
+
+Español: Esta configuración incluye el agente autónomo gemini-auto (Gemini CLI). En el chat de Kiro, actívelo con `#gemini-auto` y ejecute: `*help`, `*auto-analyze {objetivo}`, `*auto-implement {tarea}`, `*auto-review {objetivo}`, `*auto-optimize {objetivo}`, `*project-status`, `*gemini-exec {prompt}`.
+
 ---
 
 ### Acknowledgements
